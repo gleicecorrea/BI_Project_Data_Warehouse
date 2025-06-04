@@ -1,0 +1,3126 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="5/24/2025 1:12:43 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-TK37ATJ"
+  DTS:CreatorName="DESKTOP-TK37ATJ\dddd"
+  DTS:DTSID="{532093BB-DEEB-483D-822C-DECB214043DD}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.5685.0"
+  DTS:LocaleID="1046"
+  DTS:ObjectName="OLTP_STAGING"
+  DTS:PackageType="5"
+  DTS:VersionBuild="17"
+  DTS:VersionGUID="{1703F151-A4B0-49C5-A3FB-86EFCB4C0618}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DC_OLTP]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{C7E216C4-0C4E-4318-9C30-0CE482696D18}"
+      DTS:ObjectName="DC_OLTP">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=DESKTOP-TK37ATJ\SQLEXPRESS;Initial Catalog=DC_OLTP;Provider=SQLNCLI11.1;Integrated Security=SSPI;Application Name=SSIS-Package-{C7E216C4-0C4E-4318-9C30-0CE482696D18}DESKTOP-TK37ATJ\SQLEXPRESS.DC_OLTP;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DC_STAGING]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{1A0D26EF-E339-4200-94FA-0B82399E46F2}"
+      DTS:ObjectName="DC_STAGING">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=DESKTOP-TK37ATJ\SQLEXPRESS;Initial Catalog=DC_STG;Provider=SQLNCLI11.1;Integrated Security=SSPI;Application Name=SSIS-OLTP_STAGING-{1A0D26EF-E339-4200-94FA-0B82399E46F2}DESKTOP-TK37ATJ\SQLEXPRESS.DC_STG;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\DFT_OLTP_STG"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{79321A43-C211-462F-8105-0E851301E2E8}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DFT_OLTP_STG"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\DFT_OLTP_STG\OLTP_CARRIER"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLTP_CARRIER"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[Carrier]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT_OLTP_STG\OLTP_CARRIER.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DC_OLTP]"
+                  connectionManagerRefId="Package.ConnectionManagers[DC_OLTP]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\DFT_OLTP_STG\OLTP_CARRIER.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_CARRIER.Outputs[OLE DB Source Output].Columns[ID_Carrier]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\OLTP_CARRIER.Outputs[OLE DB Source Output].ExternalColumns[ID_Carrier]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_CARRIER.Outputs[OLE DB Source Output].Columns[ID_Carrier]"
+                      name="ID_Carrier"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_CARRIER.Outputs[OLE DB Source Output].Columns[Carrier_Name]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\OLTP_CARRIER.Outputs[OLE DB Source Output].ExternalColumns[Carrier_Name]"
+                      length="100"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_CARRIER.Outputs[OLE DB Source Output].Columns[Carrier_Name]"
+                      name="Carrier_Name"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_CARRIER.Outputs[OLE DB Source Output].Columns[Phone]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\OLTP_CARRIER.Outputs[OLE DB Source Output].ExternalColumns[Phone]"
+                      length="20"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_CARRIER.Outputs[OLE DB Source Output].Columns[Phone]"
+                      name="Phone"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_CARRIER.Outputs[OLE DB Source Output].ExternalColumns[ID_Carrier]"
+                      dataType="i4"
+                      name="ID_Carrier" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_CARRIER.Outputs[OLE DB Source Output].ExternalColumns[Carrier_Name]"
+                      dataType="wstr"
+                      length="100"
+                      name="Carrier_Name" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_CARRIER.Outputs[OLE DB Source Output].ExternalColumns[Phone]"
+                      dataType="wstr"
+                      length="20"
+                      name="Phone" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\DFT_OLTP_STG\OLTP_CARRIER.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_CARRIER.Outputs[OLE DB Source Error Output].Columns[ID_Carrier]"
+                      dataType="i4"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_CARRIER.Outputs[OLE DB Source Error Output].Columns[ID_Carrier]"
+                      name="ID_Carrier" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_CARRIER.Outputs[OLE DB Source Error Output].Columns[Carrier_Name]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_CARRIER.Outputs[OLE DB Source Error Output].Columns[Carrier_Name]"
+                      name="Carrier_Name" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_CARRIER.Outputs[OLE DB Source Error Output].Columns[Phone]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_CARRIER.Outputs[OLE DB Source Error Output].Columns[Phone]"
+                      name="Phone" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_CARRIER.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_CARRIER.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_CARRIER.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_CARRIER.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT_OLTP_STG\OLTP_DESTINATION"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLTP_DESTINATION"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[Destination]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT_OLTP_STG\OLTP_DESTINATION.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DC_OLTP]"
+                  connectionManagerRefId="Package.ConnectionManagers[DC_OLTP]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\DFT_OLTP_STG\OLTP_DESTINATION.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_DESTINATION.Outputs[OLE DB Source Output].Columns[ID_Destination]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\OLTP_DESTINATION.Outputs[OLE DB Source Output].ExternalColumns[ID_Destination]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_DESTINATION.Outputs[OLE DB Source Output].Columns[ID_Destination]"
+                      name="ID_Destination"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_DESTINATION.Outputs[OLE DB Source Output].Columns[LocationName]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\OLTP_DESTINATION.Outputs[OLE DB Source Output].ExternalColumns[LocationName]"
+                      length="100"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_DESTINATION.Outputs[OLE DB Source Output].Columns[LocationName]"
+                      name="LocationName"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_DESTINATION.Outputs[OLE DB Source Output].Columns[Address]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\OLTP_DESTINATION.Outputs[OLE DB Source Output].ExternalColumns[Address]"
+                      length="200"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_DESTINATION.Outputs[OLE DB Source Output].Columns[Address]"
+                      name="Address"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_DESTINATION.Outputs[OLE DB Source Output].Columns[City]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\OLTP_DESTINATION.Outputs[OLE DB Source Output].ExternalColumns[City]"
+                      length="100"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_DESTINATION.Outputs[OLE DB Source Output].Columns[City]"
+                      name="City"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_DESTINATION.Outputs[OLE DB Source Output].Columns[State]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\OLTP_DESTINATION.Outputs[OLE DB Source Output].ExternalColumns[State]"
+                      length="2"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_DESTINATION.Outputs[OLE DB Source Output].Columns[State]"
+                      name="State"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_DESTINATION.Outputs[OLE DB Source Output].ExternalColumns[ID_Destination]"
+                      dataType="i4"
+                      name="ID_Destination" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_DESTINATION.Outputs[OLE DB Source Output].ExternalColumns[LocationName]"
+                      dataType="wstr"
+                      length="100"
+                      name="LocationName" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_DESTINATION.Outputs[OLE DB Source Output].ExternalColumns[Address]"
+                      dataType="wstr"
+                      length="200"
+                      name="Address" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_DESTINATION.Outputs[OLE DB Source Output].ExternalColumns[City]"
+                      dataType="wstr"
+                      length="100"
+                      name="City" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_DESTINATION.Outputs[OLE DB Source Output].ExternalColumns[State]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="State" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\DFT_OLTP_STG\OLTP_DESTINATION.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_DESTINATION.Outputs[OLE DB Source Error Output].Columns[ID_Destination]"
+                      dataType="i4"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_DESTINATION.Outputs[OLE DB Source Error Output].Columns[ID_Destination]"
+                      name="ID_Destination" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_DESTINATION.Outputs[OLE DB Source Error Output].Columns[LocationName]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_DESTINATION.Outputs[OLE DB Source Error Output].Columns[LocationName]"
+                      name="LocationName" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_DESTINATION.Outputs[OLE DB Source Error Output].Columns[Address]"
+                      dataType="wstr"
+                      length="200"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_DESTINATION.Outputs[OLE DB Source Error Output].Columns[Address]"
+                      name="Address" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_DESTINATION.Outputs[OLE DB Source Error Output].Columns[City]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_DESTINATION.Outputs[OLE DB Source Error Output].Columns[City]"
+                      name="City" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_DESTINATION.Outputs[OLE DB Source Error Output].Columns[State]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_DESTINATION.Outputs[OLE DB Source Error Output].Columns[State]"
+                      name="State" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_DESTINATION.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_DESTINATION.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_DESTINATION.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_DESTINATION.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT_OLTP_STG\OLTP_EMPLOYEE"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLTP_EMPLOYEE"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[Employee]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT_OLTP_STG\OLTP_EMPLOYEE.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DC_OLTP]"
+                  connectionManagerRefId="Package.ConnectionManagers[DC_OLTP]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\DFT_OLTP_STG\OLTP_EMPLOYEE.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_EMPLOYEE.Outputs[OLE DB Source Output].Columns[ID_Employee]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\OLTP_EMPLOYEE.Outputs[OLE DB Source Output].ExternalColumns[ID_Employee]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_EMPLOYEE.Outputs[OLE DB Source Output].Columns[ID_Employee]"
+                      name="ID_Employee"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_EMPLOYEE.Outputs[OLE DB Source Output].Columns[Full_Name]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\OLTP_EMPLOYEE.Outputs[OLE DB Source Output].ExternalColumns[Full_Name]"
+                      length="100"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_EMPLOYEE.Outputs[OLE DB Source Output].Columns[Full_Name]"
+                      name="Full_Name"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_EMPLOYEE.Outputs[OLE DB Source Output].Columns[Job_Title]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\OLTP_EMPLOYEE.Outputs[OLE DB Source Output].ExternalColumns[Job_Title]"
+                      length="100"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_EMPLOYEE.Outputs[OLE DB Source Output].Columns[Job_Title]"
+                      name="Job_Title"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_EMPLOYEE.Outputs[OLE DB Source Output].Columns[HireDate]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\OLTP_EMPLOYEE.Outputs[OLE DB Source Output].ExternalColumns[HireDate]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_EMPLOYEE.Outputs[OLE DB Source Output].Columns[HireDate]"
+                      name="HireDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_EMPLOYEE.Outputs[OLE DB Source Output].Columns[Phone_Number]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\OLTP_EMPLOYEE.Outputs[OLE DB Source Output].ExternalColumns[Phone_Number]"
+                      length="20"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_EMPLOYEE.Outputs[OLE DB Source Output].Columns[Phone_Number]"
+                      name="Phone_Number"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_EMPLOYEE.Outputs[OLE DB Source Output].Columns[Email]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\OLTP_EMPLOYEE.Outputs[OLE DB Source Output].ExternalColumns[Email]"
+                      length="100"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_EMPLOYEE.Outputs[OLE DB Source Output].Columns[Email]"
+                      name="Email"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_EMPLOYEE.Outputs[OLE DB Source Output].ExternalColumns[ID_Employee]"
+                      dataType="i4"
+                      name="ID_Employee" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_EMPLOYEE.Outputs[OLE DB Source Output].ExternalColumns[Full_Name]"
+                      dataType="wstr"
+                      length="100"
+                      name="Full_Name" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_EMPLOYEE.Outputs[OLE DB Source Output].ExternalColumns[Job_Title]"
+                      dataType="wstr"
+                      length="100"
+                      name="Job_Title" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_EMPLOYEE.Outputs[OLE DB Source Output].ExternalColumns[HireDate]"
+                      dataType="dbDate"
+                      name="HireDate" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_EMPLOYEE.Outputs[OLE DB Source Output].ExternalColumns[Phone_Number]"
+                      dataType="wstr"
+                      length="20"
+                      name="Phone_Number" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_EMPLOYEE.Outputs[OLE DB Source Output].ExternalColumns[Email]"
+                      dataType="wstr"
+                      length="100"
+                      name="Email" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\DFT_OLTP_STG\OLTP_EMPLOYEE.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_EMPLOYEE.Outputs[OLE DB Source Error Output].Columns[ID_Employee]"
+                      dataType="i4"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_EMPLOYEE.Outputs[OLE DB Source Error Output].Columns[ID_Employee]"
+                      name="ID_Employee" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_EMPLOYEE.Outputs[OLE DB Source Error Output].Columns[Full_Name]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_EMPLOYEE.Outputs[OLE DB Source Error Output].Columns[Full_Name]"
+                      name="Full_Name" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_EMPLOYEE.Outputs[OLE DB Source Error Output].Columns[Job_Title]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_EMPLOYEE.Outputs[OLE DB Source Error Output].Columns[Job_Title]"
+                      name="Job_Title" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_EMPLOYEE.Outputs[OLE DB Source Error Output].Columns[HireDate]"
+                      dataType="dbDate"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_EMPLOYEE.Outputs[OLE DB Source Error Output].Columns[HireDate]"
+                      name="HireDate" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_EMPLOYEE.Outputs[OLE DB Source Error Output].Columns[Phone_Number]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_EMPLOYEE.Outputs[OLE DB Source Error Output].Columns[Phone_Number]"
+                      name="Phone_Number" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_EMPLOYEE.Outputs[OLE DB Source Error Output].Columns[Email]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_EMPLOYEE.Outputs[OLE DB Source Error Output].Columns[Email]"
+                      name="Email" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_EMPLOYEE.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_EMPLOYEE.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_EMPLOYEE.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_EMPLOYEE.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLTP_ORDER_TRANSACTION"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[Order_Transaction]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DC_OLTP]"
+                  connectionManagerRefId="Package.ConnectionManagers[DC_OLTP]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].Columns[ID_Employee]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].ExternalColumns[ID_Employee]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].Columns[ID_Employee]"
+                      name="ID_Employee"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].Columns[ID_Order]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].ExternalColumns[ID_Order]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].Columns[ID_Order]"
+                      name="ID_Order"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].Columns[Order_Number]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].ExternalColumns[Order_Number]"
+                      length="50"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].Columns[Order_Number]"
+                      name="Order_Number"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].Columns[ID_Product]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].ExternalColumns[ID_Product]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].Columns[ID_Product]"
+                      name="ID_Product"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].Columns[ID_Supplier]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].ExternalColumns[ID_Supplier]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].Columns[ID_Supplier]"
+                      name="ID_Supplier"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].Columns[ID_Vehicle]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].ExternalColumns[ID_Vehicle]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].Columns[ID_Vehicle]"
+                      name="ID_Vehicle"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].Columns[ID_Carrier]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].ExternalColumns[ID_Carrier]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].Columns[ID_Carrier]"
+                      name="ID_Carrier"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].Columns[ID_Destination]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].ExternalColumns[ID_Destination]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].Columns[ID_Destination]"
+                      name="ID_Destination"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].Columns[Order_Type]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].ExternalColumns[Order_Type]"
+                      length="10"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].Columns[Order_Type]"
+                      name="Order_Type"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].Columns[Order_Date]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].ExternalColumns[Order_Date]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].Columns[Order_Date]"
+                      name="Order_Date"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].Columns[Quantity]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].ExternalColumns[Quantity]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].Columns[Quantity]"
+                      name="Quantity"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].Columns[Unit_Price]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].ExternalColumns[Unit_Price]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].Columns[Unit_Price]"
+                      name="Unit_Price"
+                      precision="10"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].Columns[Total_Value]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].ExternalColumns[Total_Value]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].Columns[Total_Value]"
+                      name="Total_Value"
+                      precision="21"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].ExternalColumns[ID_Employee]"
+                      dataType="i4"
+                      name="ID_Employee" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].ExternalColumns[ID_Order]"
+                      dataType="i4"
+                      name="ID_Order" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].ExternalColumns[Order_Number]"
+                      dataType="wstr"
+                      length="50"
+                      name="Order_Number" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].ExternalColumns[ID_Product]"
+                      dataType="i4"
+                      name="ID_Product" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].ExternalColumns[ID_Supplier]"
+                      dataType="i4"
+                      name="ID_Supplier" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].ExternalColumns[ID_Vehicle]"
+                      dataType="i4"
+                      name="ID_Vehicle" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].ExternalColumns[ID_Carrier]"
+                      dataType="i4"
+                      name="ID_Carrier" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].ExternalColumns[ID_Destination]"
+                      dataType="i4"
+                      name="ID_Destination" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].ExternalColumns[Order_Type]"
+                      dataType="wstr"
+                      length="10"
+                      name="Order_Type" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].ExternalColumns[Order_Date]"
+                      dataType="dbDate"
+                      name="Order_Date" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].ExternalColumns[Quantity]"
+                      dataType="i4"
+                      name="Quantity" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].ExternalColumns[Unit_Price]"
+                      dataType="numeric"
+                      name="Unit_Price"
+                      precision="10"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].ExternalColumns[Total_Value]"
+                      dataType="numeric"
+                      name="Total_Value"
+                      precision="21"
+                      scale="2" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Error Output].Columns[ID_Order]"
+                      dataType="i4"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Error Output].Columns[ID_Order]"
+                      name="ID_Order" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Error Output].Columns[Order_Number]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Error Output].Columns[Order_Number]"
+                      name="Order_Number" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Error Output].Columns[ID_Product]"
+                      dataType="i4"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Error Output].Columns[ID_Product]"
+                      name="ID_Product" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Error Output].Columns[ID_Supplier]"
+                      dataType="i4"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Error Output].Columns[ID_Supplier]"
+                      name="ID_Supplier" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Error Output].Columns[ID_Employee]"
+                      dataType="i4"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Error Output].Columns[ID_Employee]"
+                      name="ID_Employee" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Error Output].Columns[ID_Vehicle]"
+                      dataType="i4"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Error Output].Columns[ID_Vehicle]"
+                      name="ID_Vehicle" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Error Output].Columns[ID_Carrier]"
+                      dataType="i4"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Error Output].Columns[ID_Carrier]"
+                      name="ID_Carrier" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Error Output].Columns[ID_Destination]"
+                      dataType="i4"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Error Output].Columns[ID_Destination]"
+                      name="ID_Destination" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Error Output].Columns[Order_Type]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Error Output].Columns[Order_Type]"
+                      name="Order_Type" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Error Output].Columns[Order_Date]"
+                      dataType="dbDate"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Error Output].Columns[Order_Date]"
+                      name="Order_Date" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Error Output].Columns[Quantity]"
+                      dataType="i4"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Error Output].Columns[Quantity]"
+                      name="Quantity" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Error Output].Columns[Unit_Price]"
+                      dataType="numeric"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Error Output].Columns[Unit_Price]"
+                      name="Unit_Price"
+                      precision="10"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Error Output].Columns[Total_Value]"
+                      dataType="numeric"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Error Output].Columns[Total_Value]"
+                      name="Total_Value"
+                      precision="21"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT_OLTP_STG\OLTP_PRODUCT"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLTP_PRODUCT"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[Product]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT_OLTP_STG\OLTP_PRODUCT.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DC_OLTP]"
+                  connectionManagerRefId="Package.ConnectionManagers[DC_OLTP]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\DFT_OLTP_STG\OLTP_PRODUCT.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_PRODUCT.Outputs[OLE DB Source Output].Columns[ID_Product]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\OLTP_PRODUCT.Outputs[OLE DB Source Output].ExternalColumns[ID_Product]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_PRODUCT.Outputs[OLE DB Source Output].Columns[ID_Product]"
+                      name="ID_Product"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_PRODUCT.Outputs[OLE DB Source Output].Columns[ID_Supplier]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\OLTP_PRODUCT.Outputs[OLE DB Source Output].ExternalColumns[ID_Supplier]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_PRODUCT.Outputs[OLE DB Source Output].Columns[ID_Supplier]"
+                      name="ID_Supplier"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_PRODUCT.Outputs[OLE DB Source Output].Columns[Product_Name]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\OLTP_PRODUCT.Outputs[OLE DB Source Output].ExternalColumns[Product_Name]"
+                      length="100"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_PRODUCT.Outputs[OLE DB Source Output].Columns[Product_Name]"
+                      name="Product_Name"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_PRODUCT.Outputs[OLE DB Source Output].Columns[Category]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\OLTP_PRODUCT.Outputs[OLE DB Source Output].ExternalColumns[Category]"
+                      length="50"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_PRODUCT.Outputs[OLE DB Source Output].Columns[Category]"
+                      name="Category"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_PRODUCT.Outputs[OLE DB Source Output].Columns[Unit_Price]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\OLTP_PRODUCT.Outputs[OLE DB Source Output].ExternalColumns[Unit_Price]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_PRODUCT.Outputs[OLE DB Source Output].Columns[Unit_Price]"
+                      name="Unit_Price"
+                      precision="10"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_PRODUCT.Outputs[OLE DB Source Output].ExternalColumns[ID_Product]"
+                      dataType="i4"
+                      name="ID_Product" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_PRODUCT.Outputs[OLE DB Source Output].ExternalColumns[ID_Supplier]"
+                      dataType="i4"
+                      name="ID_Supplier" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_PRODUCT.Outputs[OLE DB Source Output].ExternalColumns[Product_Name]"
+                      dataType="wstr"
+                      length="100"
+                      name="Product_Name" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_PRODUCT.Outputs[OLE DB Source Output].ExternalColumns[Category]"
+                      dataType="wstr"
+                      length="50"
+                      name="Category" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_PRODUCT.Outputs[OLE DB Source Output].ExternalColumns[Unit_Price]"
+                      dataType="numeric"
+                      name="Unit_Price"
+                      precision="10"
+                      scale="2" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\DFT_OLTP_STG\OLTP_PRODUCT.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_PRODUCT.Outputs[OLE DB Source Error Output].Columns[ID_Product]"
+                      dataType="i4"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_PRODUCT.Outputs[OLE DB Source Error Output].Columns[ID_Product]"
+                      name="ID_Product" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_PRODUCT.Outputs[OLE DB Source Error Output].Columns[ID_Supplier]"
+                      dataType="i4"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_PRODUCT.Outputs[OLE DB Source Error Output].Columns[ID_Supplier]"
+                      name="ID_Supplier" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_PRODUCT.Outputs[OLE DB Source Error Output].Columns[Product_Name]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_PRODUCT.Outputs[OLE DB Source Error Output].Columns[Product_Name]"
+                      name="Product_Name" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_PRODUCT.Outputs[OLE DB Source Error Output].Columns[Category]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_PRODUCT.Outputs[OLE DB Source Error Output].Columns[Category]"
+                      name="Category" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_PRODUCT.Outputs[OLE DB Source Error Output].Columns[Unit_Price]"
+                      dataType="numeric"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_PRODUCT.Outputs[OLE DB Source Error Output].Columns[Unit_Price]"
+                      name="Unit_Price"
+                      precision="10"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_PRODUCT.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_PRODUCT.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_PRODUCT.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_PRODUCT.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT_OLTP_STG\OLTP_SUPPLIER"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLTP_SUPPLIER"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[Supplier]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT_OLTP_STG\OLTP_SUPPLIER.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DC_OLTP]"
+                  connectionManagerRefId="Package.ConnectionManagers[DC_OLTP]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\DFT_OLTP_STG\OLTP_SUPPLIER.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_SUPPLIER.Outputs[OLE DB Source Output].Columns[ID_Supplier]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\OLTP_SUPPLIER.Outputs[OLE DB Source Output].ExternalColumns[ID_Supplier]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_SUPPLIER.Outputs[OLE DB Source Output].Columns[ID_Supplier]"
+                      name="ID_Supplier"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_SUPPLIER.Outputs[OLE DB Source Output].Columns[Trade_Name]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\OLTP_SUPPLIER.Outputs[OLE DB Source Output].ExternalColumns[Trade_Name]"
+                      length="100"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_SUPPLIER.Outputs[OLE DB Source Output].Columns[Trade_Name]"
+                      name="Trade_Name"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_SUPPLIER.Outputs[OLE DB Source Output].Columns[Contact_Name]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\OLTP_SUPPLIER.Outputs[OLE DB Source Output].ExternalColumns[Contact_Name]"
+                      length="100"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_SUPPLIER.Outputs[OLE DB Source Output].Columns[Contact_Name]"
+                      name="Contact_Name"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_SUPPLIER.Outputs[OLE DB Source Output].ExternalColumns[ID_Supplier]"
+                      dataType="i4"
+                      name="ID_Supplier" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_SUPPLIER.Outputs[OLE DB Source Output].ExternalColumns[Trade_Name]"
+                      dataType="wstr"
+                      length="100"
+                      name="Trade_Name" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_SUPPLIER.Outputs[OLE DB Source Output].ExternalColumns[Contact_Name]"
+                      dataType="wstr"
+                      length="100"
+                      name="Contact_Name" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\DFT_OLTP_STG\OLTP_SUPPLIER.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_SUPPLIER.Outputs[OLE DB Source Error Output].Columns[ID_Supplier]"
+                      dataType="i4"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_SUPPLIER.Outputs[OLE DB Source Error Output].Columns[ID_Supplier]"
+                      name="ID_Supplier" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_SUPPLIER.Outputs[OLE DB Source Error Output].Columns[Trade_Name]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_SUPPLIER.Outputs[OLE DB Source Error Output].Columns[Trade_Name]"
+                      name="Trade_Name" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_SUPPLIER.Outputs[OLE DB Source Error Output].Columns[Contact_Name]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_SUPPLIER.Outputs[OLE DB Source Error Output].Columns[Contact_Name]"
+                      name="Contact_Name" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_SUPPLIER.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_SUPPLIER.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_SUPPLIER.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_SUPPLIER.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT_OLTP_STG\OLTP_VEHICLE"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLTP_VEHICLE"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[Vehicle]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT_OLTP_STG\OLTP_VEHICLE.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DC_OLTP]"
+                  connectionManagerRefId="Package.ConnectionManagers[DC_OLTP]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\DFT_OLTP_STG\OLTP_VEHICLE.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_VEHICLE.Outputs[OLE DB Source Output].Columns[ID_Vehicle]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\OLTP_VEHICLE.Outputs[OLE DB Source Output].ExternalColumns[ID_Vehicle]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_VEHICLE.Outputs[OLE DB Source Output].Columns[ID_Vehicle]"
+                      name="ID_Vehicle"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_VEHICLE.Outputs[OLE DB Source Output].Columns[ID_Carrier]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\OLTP_VEHICLE.Outputs[OLE DB Source Output].ExternalColumns[ID_Carrier]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_VEHICLE.Outputs[OLE DB Source Output].Columns[ID_Carrier]"
+                      name="ID_Carrier"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_VEHICLE.Outputs[OLE DB Source Output].Columns[License_Plate]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\OLTP_VEHICLE.Outputs[OLE DB Source Output].ExternalColumns[License_Plate]"
+                      length="7"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_VEHICLE.Outputs[OLE DB Source Output].Columns[License_Plate]"
+                      name="License_Plate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_VEHICLE.Outputs[OLE DB Source Output].Columns[Model]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\OLTP_VEHICLE.Outputs[OLE DB Source Output].ExternalColumns[Model]"
+                      length="50"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_VEHICLE.Outputs[OLE DB Source Output].Columns[Model]"
+                      name="Model"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_VEHICLE.Outputs[OLE DB Source Output].ExternalColumns[ID_Vehicle]"
+                      dataType="i4"
+                      name="ID_Vehicle" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_VEHICLE.Outputs[OLE DB Source Output].ExternalColumns[ID_Carrier]"
+                      dataType="i4"
+                      name="ID_Carrier" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_VEHICLE.Outputs[OLE DB Source Output].ExternalColumns[License_Plate]"
+                      codePage="1252"
+                      dataType="str"
+                      length="7"
+                      name="License_Plate" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_VEHICLE.Outputs[OLE DB Source Output].ExternalColumns[Model]"
+                      dataType="wstr"
+                      length="50"
+                      name="Model" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\DFT_OLTP_STG\OLTP_VEHICLE.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_VEHICLE.Outputs[OLE DB Source Error Output].Columns[ID_Vehicle]"
+                      dataType="i4"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_VEHICLE.Outputs[OLE DB Source Error Output].Columns[ID_Vehicle]"
+                      name="ID_Vehicle" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_VEHICLE.Outputs[OLE DB Source Error Output].Columns[ID_Carrier]"
+                      dataType="i4"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_VEHICLE.Outputs[OLE DB Source Error Output].Columns[ID_Carrier]"
+                      name="ID_Carrier" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_VEHICLE.Outputs[OLE DB Source Error Output].Columns[License_Plate]"
+                      codePage="1252"
+                      dataType="str"
+                      length="7"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_VEHICLE.Outputs[OLE DB Source Error Output].Columns[License_Plate]"
+                      name="License_Plate" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_VEHICLE.Outputs[OLE DB Source Error Output].Columns[Model]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_VEHICLE.Outputs[OLE DB Source Error Output].Columns[Model]"
+                      name="Model" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_VEHICLE.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_VEHICLE.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\OLTP_VEHICLE.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_VEHICLE.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT_OLTP_STG\STG_CARRIER"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="STG_CARRIER"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[stg].[Carrier]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT_OLTP_STG\STG_CARRIER.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DC_STAGING]"
+                  connectionManagerRefId="Package.ConnectionManagers[DC_STAGING]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT_OLTP_STG\STG_CARRIER.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT_OLTP_STG\STG_CARRIER.Inputs[OLE DB Destination Input].Columns[ID_Carrier]"
+                      cachedDataType="i4"
+                      cachedName="ID_Carrier"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\STG_CARRIER.Inputs[OLE DB Destination Input].ExternalColumns[ID_Carrier]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_CARRIER.Outputs[OLE DB Source Output].Columns[ID_Carrier]" />
+                    <inputColumn
+                      refId="Package\DFT_OLTP_STG\STG_CARRIER.Inputs[OLE DB Destination Input].Columns[Carrier_Name]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="Carrier_Name"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\STG_CARRIER.Inputs[OLE DB Destination Input].ExternalColumns[Carrier_Name]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_CARRIER.Outputs[OLE DB Source Output].Columns[Carrier_Name]" />
+                    <inputColumn
+                      refId="Package\DFT_OLTP_STG\STG_CARRIER.Inputs[OLE DB Destination Input].Columns[Phone]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="Phone"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\STG_CARRIER.Inputs[OLE DB Destination Input].ExternalColumns[Phone]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_CARRIER.Outputs[OLE DB Source Output].Columns[Phone]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\STG_CARRIER.Inputs[OLE DB Destination Input].ExternalColumns[ID_Carrier]"
+                      dataType="i4"
+                      name="ID_Carrier" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\STG_CARRIER.Inputs[OLE DB Destination Input].ExternalColumns[Carrier_Name]"
+                      dataType="wstr"
+                      length="100"
+                      name="Carrier_Name" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\STG_CARRIER.Inputs[OLE DB Destination Input].ExternalColumns[Phone]"
+                      dataType="wstr"
+                      length="20"
+                      name="Phone" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT_OLTP_STG\STG_CARRIER.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\DFT_OLTP_STG\STG_CARRIER.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\STG_CARRIER.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_OLTP_STG\STG_CARRIER.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\STG_CARRIER.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_OLTP_STG\STG_CARRIER.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT_OLTP_STG\STG_DESTINATION"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="STG_DESTINATION"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[stg].[Destination]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT_OLTP_STG\STG_DESTINATION.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DC_STAGING]"
+                  connectionManagerRefId="Package.ConnectionManagers[DC_STAGING]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT_OLTP_STG\STG_DESTINATION.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT_OLTP_STG\STG_DESTINATION.Inputs[OLE DB Destination Input].Columns[ID_Destination]"
+                      cachedDataType="i4"
+                      cachedName="ID_Destination"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\STG_DESTINATION.Inputs[OLE DB Destination Input].ExternalColumns[ID_Destination]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_DESTINATION.Outputs[OLE DB Source Output].Columns[ID_Destination]" />
+                    <inputColumn
+                      refId="Package\DFT_OLTP_STG\STG_DESTINATION.Inputs[OLE DB Destination Input].Columns[LocationName]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="LocationName"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\STG_DESTINATION.Inputs[OLE DB Destination Input].ExternalColumns[LocationName]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_DESTINATION.Outputs[OLE DB Source Output].Columns[LocationName]" />
+                    <inputColumn
+                      refId="Package\DFT_OLTP_STG\STG_DESTINATION.Inputs[OLE DB Destination Input].Columns[Address]"
+                      cachedDataType="wstr"
+                      cachedLength="200"
+                      cachedName="Address"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\STG_DESTINATION.Inputs[OLE DB Destination Input].ExternalColumns[Address]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_DESTINATION.Outputs[OLE DB Source Output].Columns[Address]" />
+                    <inputColumn
+                      refId="Package\DFT_OLTP_STG\STG_DESTINATION.Inputs[OLE DB Destination Input].Columns[City]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="City"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\STG_DESTINATION.Inputs[OLE DB Destination Input].ExternalColumns[City]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_DESTINATION.Outputs[OLE DB Source Output].Columns[City]" />
+                    <inputColumn
+                      refId="Package\DFT_OLTP_STG\STG_DESTINATION.Inputs[OLE DB Destination Input].Columns[State]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="State"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\STG_DESTINATION.Inputs[OLE DB Destination Input].ExternalColumns[State]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_DESTINATION.Outputs[OLE DB Source Output].Columns[State]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\STG_DESTINATION.Inputs[OLE DB Destination Input].ExternalColumns[ID_Destination]"
+                      dataType="i4"
+                      name="ID_Destination" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\STG_DESTINATION.Inputs[OLE DB Destination Input].ExternalColumns[LocationName]"
+                      dataType="wstr"
+                      length="100"
+                      name="LocationName" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\STG_DESTINATION.Inputs[OLE DB Destination Input].ExternalColumns[Address]"
+                      dataType="wstr"
+                      length="200"
+                      name="Address" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\STG_DESTINATION.Inputs[OLE DB Destination Input].ExternalColumns[City]"
+                      dataType="wstr"
+                      length="100"
+                      name="City" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\STG_DESTINATION.Inputs[OLE DB Destination Input].ExternalColumns[State]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="State" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT_OLTP_STG\STG_DESTINATION.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\DFT_OLTP_STG\STG_DESTINATION.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\STG_DESTINATION.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_OLTP_STG\STG_DESTINATION.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\STG_DESTINATION.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_OLTP_STG\STG_DESTINATION.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT_OLTP_STG\STG_EMPLOYEE"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="STG_EMPLOYEE"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[stg].[Employee]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT_OLTP_STG\STG_EMPLOYEE.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DC_STAGING]"
+                  connectionManagerRefId="Package.ConnectionManagers[DC_STAGING]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT_OLTP_STG\STG_EMPLOYEE.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT_OLTP_STG\STG_EMPLOYEE.Inputs[OLE DB Destination Input].Columns[ID_Employee]"
+                      cachedDataType="i4"
+                      cachedName="ID_Employee"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\STG_EMPLOYEE.Inputs[OLE DB Destination Input].ExternalColumns[ID_Employee]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_EMPLOYEE.Outputs[OLE DB Source Output].Columns[ID_Employee]" />
+                    <inputColumn
+                      refId="Package\DFT_OLTP_STG\STG_EMPLOYEE.Inputs[OLE DB Destination Input].Columns[Full_Name]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="Full_Name"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\STG_EMPLOYEE.Inputs[OLE DB Destination Input].ExternalColumns[Full_Name]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_EMPLOYEE.Outputs[OLE DB Source Output].Columns[Full_Name]" />
+                    <inputColumn
+                      refId="Package\DFT_OLTP_STG\STG_EMPLOYEE.Inputs[OLE DB Destination Input].Columns[Job_Title]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="Job_Title"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\STG_EMPLOYEE.Inputs[OLE DB Destination Input].ExternalColumns[Job_Title]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_EMPLOYEE.Outputs[OLE DB Source Output].Columns[Job_Title]" />
+                    <inputColumn
+                      refId="Package\DFT_OLTP_STG\STG_EMPLOYEE.Inputs[OLE DB Destination Input].Columns[HireDate]"
+                      cachedDataType="dbDate"
+                      cachedName="HireDate"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\STG_EMPLOYEE.Inputs[OLE DB Destination Input].ExternalColumns[HireDate]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_EMPLOYEE.Outputs[OLE DB Source Output].Columns[HireDate]" />
+                    <inputColumn
+                      refId="Package\DFT_OLTP_STG\STG_EMPLOYEE.Inputs[OLE DB Destination Input].Columns[Phone_Number]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="Phone_Number"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\STG_EMPLOYEE.Inputs[OLE DB Destination Input].ExternalColumns[Phone_Number]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_EMPLOYEE.Outputs[OLE DB Source Output].Columns[Phone_Number]" />
+                    <inputColumn
+                      refId="Package\DFT_OLTP_STG\STG_EMPLOYEE.Inputs[OLE DB Destination Input].Columns[Email]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="Email"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\STG_EMPLOYEE.Inputs[OLE DB Destination Input].ExternalColumns[Email]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_EMPLOYEE.Outputs[OLE DB Source Output].Columns[Email]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\STG_EMPLOYEE.Inputs[OLE DB Destination Input].ExternalColumns[ID_Employee]"
+                      dataType="i4"
+                      name="ID_Employee" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\STG_EMPLOYEE.Inputs[OLE DB Destination Input].ExternalColumns[Full_Name]"
+                      dataType="wstr"
+                      length="100"
+                      name="Full_Name" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\STG_EMPLOYEE.Inputs[OLE DB Destination Input].ExternalColumns[Job_Title]"
+                      dataType="wstr"
+                      length="100"
+                      name="Job_Title" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\STG_EMPLOYEE.Inputs[OLE DB Destination Input].ExternalColumns[HireDate]"
+                      dataType="dbDate"
+                      name="HireDate" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\STG_EMPLOYEE.Inputs[OLE DB Destination Input].ExternalColumns[Phone_Number]"
+                      dataType="wstr"
+                      length="20"
+                      name="Phone_Number" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\STG_EMPLOYEE.Inputs[OLE DB Destination Input].ExternalColumns[Email]"
+                      dataType="wstr"
+                      length="100"
+                      name="Email" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT_OLTP_STG\STG_EMPLOYEE.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\DFT_OLTP_STG\STG_EMPLOYEE.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\STG_EMPLOYEE.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_OLTP_STG\STG_EMPLOYEE.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\STG_EMPLOYEE.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_OLTP_STG\STG_EMPLOYEE.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT_OLTP_STG\STG_ORDER_TRANSACTION"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="STG_ORDER_TRANSACTION"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[stg].[Order_Transaction]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT_OLTP_STG\STG_ORDER_TRANSACTION.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DC_STAGING]"
+                  connectionManagerRefId="Package.ConnectionManagers[DC_STAGING]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT_OLTP_STG\STG_ORDER_TRANSACTION.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT_OLTP_STG\STG_ORDER_TRANSACTION.Inputs[OLE DB Destination Input].Columns[ID_Employee]"
+                      cachedDataType="i4"
+                      cachedName="ID_Employee"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\STG_ORDER_TRANSACTION.Inputs[OLE DB Destination Input].ExternalColumns[ID_Employee]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].Columns[ID_Employee]" />
+                    <inputColumn
+                      refId="Package\DFT_OLTP_STG\STG_ORDER_TRANSACTION.Inputs[OLE DB Destination Input].Columns[ID_Order]"
+                      cachedDataType="i4"
+                      cachedName="ID_Order"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\STG_ORDER_TRANSACTION.Inputs[OLE DB Destination Input].ExternalColumns[ID_Order]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].Columns[ID_Order]" />
+                    <inputColumn
+                      refId="Package\DFT_OLTP_STG\STG_ORDER_TRANSACTION.Inputs[OLE DB Destination Input].Columns[Order_Number]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Order_Number"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\STG_ORDER_TRANSACTION.Inputs[OLE DB Destination Input].ExternalColumns[Order_Number]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].Columns[Order_Number]" />
+                    <inputColumn
+                      refId="Package\DFT_OLTP_STG\STG_ORDER_TRANSACTION.Inputs[OLE DB Destination Input].Columns[ID_Product]"
+                      cachedDataType="i4"
+                      cachedName="ID_Product"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\STG_ORDER_TRANSACTION.Inputs[OLE DB Destination Input].ExternalColumns[ID_Product]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].Columns[ID_Product]" />
+                    <inputColumn
+                      refId="Package\DFT_OLTP_STG\STG_ORDER_TRANSACTION.Inputs[OLE DB Destination Input].Columns[ID_Supplier]"
+                      cachedDataType="i4"
+                      cachedName="ID_Supplier"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\STG_ORDER_TRANSACTION.Inputs[OLE DB Destination Input].ExternalColumns[ID_Supplier]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].Columns[ID_Supplier]" />
+                    <inputColumn
+                      refId="Package\DFT_OLTP_STG\STG_ORDER_TRANSACTION.Inputs[OLE DB Destination Input].Columns[ID_Vehicle]"
+                      cachedDataType="i4"
+                      cachedName="ID_Vehicle"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\STG_ORDER_TRANSACTION.Inputs[OLE DB Destination Input].ExternalColumns[ID_Vehicle]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].Columns[ID_Vehicle]" />
+                    <inputColumn
+                      refId="Package\DFT_OLTP_STG\STG_ORDER_TRANSACTION.Inputs[OLE DB Destination Input].Columns[ID_Carrier]"
+                      cachedDataType="i4"
+                      cachedName="ID_Carrier"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\STG_ORDER_TRANSACTION.Inputs[OLE DB Destination Input].ExternalColumns[ID_Carrier]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].Columns[ID_Carrier]" />
+                    <inputColumn
+                      refId="Package\DFT_OLTP_STG\STG_ORDER_TRANSACTION.Inputs[OLE DB Destination Input].Columns[ID_Destination]"
+                      cachedDataType="i4"
+                      cachedName="ID_Destination"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\STG_ORDER_TRANSACTION.Inputs[OLE DB Destination Input].ExternalColumns[ID_Destination]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].Columns[ID_Destination]" />
+                    <inputColumn
+                      refId="Package\DFT_OLTP_STG\STG_ORDER_TRANSACTION.Inputs[OLE DB Destination Input].Columns[Order_Type]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="Order_Type"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\STG_ORDER_TRANSACTION.Inputs[OLE DB Destination Input].ExternalColumns[Order_Type]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].Columns[Order_Type]" />
+                    <inputColumn
+                      refId="Package\DFT_OLTP_STG\STG_ORDER_TRANSACTION.Inputs[OLE DB Destination Input].Columns[Order_Date]"
+                      cachedDataType="dbDate"
+                      cachedName="Order_Date"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\STG_ORDER_TRANSACTION.Inputs[OLE DB Destination Input].ExternalColumns[Order_Date]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].Columns[Order_Date]" />
+                    <inputColumn
+                      refId="Package\DFT_OLTP_STG\STG_ORDER_TRANSACTION.Inputs[OLE DB Destination Input].Columns[Quantity]"
+                      cachedDataType="i4"
+                      cachedName="Quantity"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\STG_ORDER_TRANSACTION.Inputs[OLE DB Destination Input].ExternalColumns[Quantity]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].Columns[Quantity]" />
+                    <inputColumn
+                      refId="Package\DFT_OLTP_STG\STG_ORDER_TRANSACTION.Inputs[OLE DB Destination Input].Columns[Unit_Price]"
+                      cachedDataType="numeric"
+                      cachedName="Unit_Price"
+                      cachedPrecision="10"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\STG_ORDER_TRANSACTION.Inputs[OLE DB Destination Input].ExternalColumns[Unit_Price]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output].Columns[Unit_Price]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\STG_ORDER_TRANSACTION.Inputs[OLE DB Destination Input].ExternalColumns[ID_Employee]"
+                      dataType="i4"
+                      name="ID_Employee" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\STG_ORDER_TRANSACTION.Inputs[OLE DB Destination Input].ExternalColumns[ID_Order]"
+                      dataType="i4"
+                      name="ID_Order" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\STG_ORDER_TRANSACTION.Inputs[OLE DB Destination Input].ExternalColumns[Order_Number]"
+                      dataType="wstr"
+                      length="50"
+                      name="Order_Number" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\STG_ORDER_TRANSACTION.Inputs[OLE DB Destination Input].ExternalColumns[ID_Product]"
+                      dataType="i4"
+                      name="ID_Product" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\STG_ORDER_TRANSACTION.Inputs[OLE DB Destination Input].ExternalColumns[ID_Supplier]"
+                      dataType="i4"
+                      name="ID_Supplier" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\STG_ORDER_TRANSACTION.Inputs[OLE DB Destination Input].ExternalColumns[ID_Vehicle]"
+                      dataType="i4"
+                      name="ID_Vehicle" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\STG_ORDER_TRANSACTION.Inputs[OLE DB Destination Input].ExternalColumns[ID_Carrier]"
+                      dataType="i4"
+                      name="ID_Carrier" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\STG_ORDER_TRANSACTION.Inputs[OLE DB Destination Input].ExternalColumns[ID_Destination]"
+                      dataType="i4"
+                      name="ID_Destination" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\STG_ORDER_TRANSACTION.Inputs[OLE DB Destination Input].ExternalColumns[Order_Type]"
+                      dataType="wstr"
+                      length="10"
+                      name="Order_Type" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\STG_ORDER_TRANSACTION.Inputs[OLE DB Destination Input].ExternalColumns[Order_Date]"
+                      dataType="dbDate"
+                      name="Order_Date" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\STG_ORDER_TRANSACTION.Inputs[OLE DB Destination Input].ExternalColumns[Quantity]"
+                      dataType="i4"
+                      name="Quantity" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\STG_ORDER_TRANSACTION.Inputs[OLE DB Destination Input].ExternalColumns[Unit_Price]"
+                      dataType="numeric"
+                      name="Unit_Price"
+                      precision="10"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\STG_ORDER_TRANSACTION.Inputs[OLE DB Destination Input].ExternalColumns[Total_Value]"
+                      dataType="numeric"
+                      name="Total_Value"
+                      precision="21"
+                      scale="2" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT_OLTP_STG\STG_ORDER_TRANSACTION.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\DFT_OLTP_STG\STG_ORDER_TRANSACTION.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\STG_ORDER_TRANSACTION.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_OLTP_STG\STG_ORDER_TRANSACTION.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\STG_ORDER_TRANSACTION.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_OLTP_STG\STG_ORDER_TRANSACTION.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT_OLTP_STG\STG_PRODUCT"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="STG_PRODUCT"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[stg].[Product]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT_OLTP_STG\STG_PRODUCT.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DC_STAGING]"
+                  connectionManagerRefId="Package.ConnectionManagers[DC_STAGING]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT_OLTP_STG\STG_PRODUCT.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT_OLTP_STG\STG_PRODUCT.Inputs[OLE DB Destination Input].Columns[ID_Product]"
+                      cachedDataType="i4"
+                      cachedName="ID_Product"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\STG_PRODUCT.Inputs[OLE DB Destination Input].ExternalColumns[ID_Product]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_PRODUCT.Outputs[OLE DB Source Output].Columns[ID_Product]" />
+                    <inputColumn
+                      refId="Package\DFT_OLTP_STG\STG_PRODUCT.Inputs[OLE DB Destination Input].Columns[ID_Supplier]"
+                      cachedDataType="i4"
+                      cachedName="ID_Supplier"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\STG_PRODUCT.Inputs[OLE DB Destination Input].ExternalColumns[ID_Supplier]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_PRODUCT.Outputs[OLE DB Source Output].Columns[ID_Supplier]" />
+                    <inputColumn
+                      refId="Package\DFT_OLTP_STG\STG_PRODUCT.Inputs[OLE DB Destination Input].Columns[Product_Name]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="Product_Name"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\STG_PRODUCT.Inputs[OLE DB Destination Input].ExternalColumns[Product_Name]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_PRODUCT.Outputs[OLE DB Source Output].Columns[Product_Name]" />
+                    <inputColumn
+                      refId="Package\DFT_OLTP_STG\STG_PRODUCT.Inputs[OLE DB Destination Input].Columns[Category]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Category"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\STG_PRODUCT.Inputs[OLE DB Destination Input].ExternalColumns[Category]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_PRODUCT.Outputs[OLE DB Source Output].Columns[Category]" />
+                    <inputColumn
+                      refId="Package\DFT_OLTP_STG\STG_PRODUCT.Inputs[OLE DB Destination Input].Columns[Unit_Price]"
+                      cachedDataType="numeric"
+                      cachedName="Unit_Price"
+                      cachedPrecision="10"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\STG_PRODUCT.Inputs[OLE DB Destination Input].ExternalColumns[Unit_Price]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_PRODUCT.Outputs[OLE DB Source Output].Columns[Unit_Price]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\STG_PRODUCT.Inputs[OLE DB Destination Input].ExternalColumns[ID_Product]"
+                      dataType="i4"
+                      name="ID_Product" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\STG_PRODUCT.Inputs[OLE DB Destination Input].ExternalColumns[ID_Supplier]"
+                      dataType="i4"
+                      name="ID_Supplier" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\STG_PRODUCT.Inputs[OLE DB Destination Input].ExternalColumns[Product_Name]"
+                      dataType="wstr"
+                      length="100"
+                      name="Product_Name" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\STG_PRODUCT.Inputs[OLE DB Destination Input].ExternalColumns[Category]"
+                      dataType="wstr"
+                      length="50"
+                      name="Category" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\STG_PRODUCT.Inputs[OLE DB Destination Input].ExternalColumns[Unit_Price]"
+                      dataType="numeric"
+                      name="Unit_Price"
+                      precision="10"
+                      scale="2" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT_OLTP_STG\STG_PRODUCT.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\DFT_OLTP_STG\STG_PRODUCT.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\STG_PRODUCT.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_OLTP_STG\STG_PRODUCT.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\STG_PRODUCT.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_OLTP_STG\STG_PRODUCT.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT_OLTP_STG\STG_SUPPLIER"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="STG_SUPPLIER"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[stg].[Supplier]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT_OLTP_STG\STG_SUPPLIER.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DC_STAGING]"
+                  connectionManagerRefId="Package.ConnectionManagers[DC_STAGING]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT_OLTP_STG\STG_SUPPLIER.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT_OLTP_STG\STG_SUPPLIER.Inputs[OLE DB Destination Input].Columns[ID_Supplier]"
+                      cachedDataType="i4"
+                      cachedName="ID_Supplier"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\STG_SUPPLIER.Inputs[OLE DB Destination Input].ExternalColumns[ID_Supplier]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_SUPPLIER.Outputs[OLE DB Source Output].Columns[ID_Supplier]" />
+                    <inputColumn
+                      refId="Package\DFT_OLTP_STG\STG_SUPPLIER.Inputs[OLE DB Destination Input].Columns[Trade_Name]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="Trade_Name"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\STG_SUPPLIER.Inputs[OLE DB Destination Input].ExternalColumns[Trade_Name]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_SUPPLIER.Outputs[OLE DB Source Output].Columns[Trade_Name]" />
+                    <inputColumn
+                      refId="Package\DFT_OLTP_STG\STG_SUPPLIER.Inputs[OLE DB Destination Input].Columns[Contact_Name]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="Contact_Name"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\STG_SUPPLIER.Inputs[OLE DB Destination Input].ExternalColumns[Contact_Name]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_SUPPLIER.Outputs[OLE DB Source Output].Columns[Contact_Name]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\STG_SUPPLIER.Inputs[OLE DB Destination Input].ExternalColumns[ID_Supplier]"
+                      dataType="i4"
+                      name="ID_Supplier" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\STG_SUPPLIER.Inputs[OLE DB Destination Input].ExternalColumns[Trade_Name]"
+                      dataType="wstr"
+                      length="100"
+                      name="Trade_Name" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\STG_SUPPLIER.Inputs[OLE DB Destination Input].ExternalColumns[Contact_Name]"
+                      dataType="wstr"
+                      length="100"
+                      name="Contact_Name" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT_OLTP_STG\STG_SUPPLIER.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\DFT_OLTP_STG\STG_SUPPLIER.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\STG_SUPPLIER.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_OLTP_STG\STG_SUPPLIER.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\STG_SUPPLIER.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_OLTP_STG\STG_SUPPLIER.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT_OLTP_STG\STG_VEHICLE"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="STG_VEHICLE"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[stg].[Vehicle]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT_OLTP_STG\STG_VEHICLE.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DC_STAGING]"
+                  connectionManagerRefId="Package.ConnectionManagers[DC_STAGING]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT_OLTP_STG\STG_VEHICLE.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT_OLTP_STG\STG_VEHICLE.Inputs[OLE DB Destination Input].Columns[ID_Vehicle]"
+                      cachedDataType="i4"
+                      cachedName="ID_Vehicle"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\STG_VEHICLE.Inputs[OLE DB Destination Input].ExternalColumns[ID_Vehicle]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_VEHICLE.Outputs[OLE DB Source Output].Columns[ID_Vehicle]" />
+                    <inputColumn
+                      refId="Package\DFT_OLTP_STG\STG_VEHICLE.Inputs[OLE DB Destination Input].Columns[ID_Carrier]"
+                      cachedDataType="i4"
+                      cachedName="ID_Carrier"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\STG_VEHICLE.Inputs[OLE DB Destination Input].ExternalColumns[ID_Carrier]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_VEHICLE.Outputs[OLE DB Source Output].Columns[ID_Carrier]" />
+                    <inputColumn
+                      refId="Package\DFT_OLTP_STG\STG_VEHICLE.Inputs[OLE DB Destination Input].Columns[License_Plate]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="7"
+                      cachedName="License_Plate"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\STG_VEHICLE.Inputs[OLE DB Destination Input].ExternalColumns[License_Plate]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_VEHICLE.Outputs[OLE DB Source Output].Columns[License_Plate]" />
+                    <inputColumn
+                      refId="Package\DFT_OLTP_STG\STG_VEHICLE.Inputs[OLE DB Destination Input].Columns[Model]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Model"
+                      externalMetadataColumnId="Package\DFT_OLTP_STG\STG_VEHICLE.Inputs[OLE DB Destination Input].ExternalColumns[Model]"
+                      lineageId="Package\DFT_OLTP_STG\OLTP_VEHICLE.Outputs[OLE DB Source Output].Columns[Model]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\STG_VEHICLE.Inputs[OLE DB Destination Input].ExternalColumns[ID_Vehicle]"
+                      dataType="i4"
+                      name="ID_Vehicle" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\STG_VEHICLE.Inputs[OLE DB Destination Input].ExternalColumns[ID_Carrier]"
+                      dataType="i4"
+                      name="ID_Carrier" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\STG_VEHICLE.Inputs[OLE DB Destination Input].ExternalColumns[License_Plate]"
+                      codePage="1252"
+                      dataType="str"
+                      length="7"
+                      name="License_Plate" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_OLTP_STG\STG_VEHICLE.Inputs[OLE DB Destination Input].ExternalColumns[Model]"
+                      dataType="wstr"
+                      length="50"
+                      name="Model" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT_OLTP_STG\STG_VEHICLE.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\DFT_OLTP_STG\STG_VEHICLE.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\STG_VEHICLE.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_OLTP_STG\STG_VEHICLE.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_OLTP_STG\STG_VEHICLE.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_OLTP_STG\STG_VEHICLE.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\DFT_OLTP_STG.Paths[OLE DB Source Output]"
+              endId="Package\DFT_OLTP_STG\STG_EMPLOYEE.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\DFT_OLTP_STG\OLTP_EMPLOYEE.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\DFT_OLTP_STG.Paths[OLE DB Source Output1]"
+              endId="Package\DFT_OLTP_STG\STG_CARRIER.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\DFT_OLTP_STG\OLTP_CARRIER.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\DFT_OLTP_STG.Paths[OLE DB Source Output2]"
+              endId="Package\DFT_OLTP_STG\STG_DESTINATION.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\DFT_OLTP_STG\OLTP_DESTINATION.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\DFT_OLTP_STG.Paths[OLE DB Source Output3]"
+              endId="Package\DFT_OLTP_STG\STG_PRODUCT.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\DFT_OLTP_STG\OLTP_PRODUCT.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\DFT_OLTP_STG.Paths[OLE DB Source Output4]"
+              endId="Package\DFT_OLTP_STG\STG_SUPPLIER.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\DFT_OLTP_STG\OLTP_SUPPLIER.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\DFT_OLTP_STG.Paths[OLE DB Source Output5]"
+              endId="Package\DFT_OLTP_STG\STG_VEHICLE.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\DFT_OLTP_STG\OLTP_VEHICLE.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\DFT_OLTP_STG.Paths[OLE DB Source Output6]"
+              endId="Package\DFT_OLTP_STG\STG_ORDER_TRANSACTION.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\TRUNCATE_STG_TABLES"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{3C7E674F-2E27-4D41-B93C-9EBF2816AE09}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="TRUNCATE_STG_TABLES"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{1A0D26EF-E339-4200-94FA-0B82399E46F2}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE stg.Order_Transaction;&#xA;TRUNCATE TABLE stg.Destination;&#xA;TRUNCATE TABLE stg.Vehicle;&#xA;TRUNCATE TABLE stg.Carrier;&#xA;TRUNCATE TABLE stg.Product;&#xA;TRUNCATE TABLE stg.Supplier;&#xA;TRUNCATE TABLE stg.Employee;&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{CB04A0AE-D06A-478F-9852-6E46A2782E00}"
+      DTS:From="Package\TRUNCATE_STG_TABLES"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\DFT_OLTP_STG" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="158.4,41.6"
+          Id="Package\DFT_OLTP_STG"
+          TopLeft="193.333322770066,126.533332453436" />
+        <NodeLayout
+          Size="208,41.6"
+          Id="Package\TRUNCATE_STG_TABLES"
+          TopLeft="170.833323999412,34.666666425599" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="273.683323384739,76.266666425599">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,50.2666660278373"
+              Start="0,0"
+              End="0,42.7666660278373">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,42.7666660278373" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\DFT_OLTP_STG">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="168.8,41.6"
+          Id="Package\DFT_OLTP_STG\OLTP_EMPLOYEE"
+          TopLeft="10.8333327414259,68.466666190558" />
+        <NodeLayout
+          Size="162.4,41.6"
+          Id="Package\DFT_OLTP_STG\STG_EMPLOYEE"
+          TopLeft="19.999998907248,166.399998842875" />
+        <EdgeLayout
+          Id="Package\DFT_OLTP_STG.Paths[OLE DB Source Output]"
+          TopLeft="98.216665824337,110.066666190558">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,56.3333326523173"
+              Start="0,0"
+              End="0,48.8333326523173">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,48.8333326523173" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="158.4,41.6"
+          Id="Package\DFT_OLTP_STG\OLTP_CARRIER"
+          TopLeft="219.166654691928,68.666666895681" />
+        <NodeLayout
+          Size="152,41.6"
+          Id="Package\DFT_OLTP_STG\STG_CARRIER"
+          TopLeft="221.666654555334,168.333332869278" />
+        <EdgeLayout
+          Id="Package\DFT_OLTP_STG.Paths[OLE DB Source Output1]"
+          TopLeft="298.016654623631,110.266666895681">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,58.0666659735971"
+              Start="0,0"
+              End="0,50.5666659735971">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,50.5666659735971" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="181.6,41.6"
+          Id="Package\DFT_OLTP_STG\OLTP_DESTINATION"
+          TopLeft="419.999977052213,69.7333342614439" />
+        <NodeLayout
+          Size="175.2,41.6"
+          Id="Package\DFT_OLTP_STG\STG_DESTINATION"
+          TopLeft="422.499976915619,169.400000235041" />
+        <EdgeLayout
+          Id="Package\DFT_OLTP_STG.Paths[OLE DB Source Output2]"
+          TopLeft="510.449976983916,111.333334261444">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,58.066665973597"
+              Start="0,0"
+              End="0,50.566665973597">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,50.566665973597" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="156.8,41.6"
+          Id="Package\DFT_OLTP_STG\STG_PRODUCT"
+          TopLeft="631.666632153923,169.000000705122" />
+        <NodeLayout
+          Size="162.4,41.6"
+          Id="Package\DFT_OLTP_STG\OLTP_PRODUCT"
+          TopLeft="629.166632290517,69.3333347315256" />
+        <EdgeLayout
+          Id="Package\DFT_OLTP_STG.Paths[OLE DB Source Output3]"
+          TopLeft="710.21663222222,110.933334731526">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,58.0666659735969"
+              Start="0,0"
+              End="0,50.5666659735969">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,50.5666659735969" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="156.8,41.6"
+          Id="Package\DFT_OLTP_STG\STG_SUPPLIER"
+          TopLeft="13.3333326048317,370.666666208638" />
+        <NodeLayout
+          Size="162.4,41.6"
+          Id="Package\DFT_OLTP_STG\OLTP_SUPPLIER"
+          TopLeft="10.8333327414259,271.000000235041" />
+        <EdgeLayout
+          Id="Package\DFT_OLTP_STG.Paths[OLE DB Source Output4]"
+          TopLeft="91.8833326731288,312.600000235041">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,58.066665973597"
+              Start="0,0"
+              End="0,50.566665973597">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,50.566665973597" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="150.4,41.6"
+          Id="Package\DFT_OLTP_STG\STG_VEHICLE"
+          TopLeft="220.833321267532,368.266666931841" />
+        <NodeLayout
+          Size="156,41.6"
+          Id="Package\DFT_OLTP_STG\OLTP_VEHICLE"
+          TopLeft="218.333321404126,268.600000958244" />
+        <EdgeLayout
+          Id="Package\DFT_OLTP_STG.Paths[OLE DB Source Output5]"
+          TopLeft="296.183321335829,310.200000958244">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,58.0666659735969"
+              Start="0,0"
+              End="0,50.5666659735969">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,50.5666659735969" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="223.2,41.6"
+          Id="Package\DFT_OLTP_STG\STG_ORDER_TRANSACTION"
+          TopLeft="429.166643218034,366.533333610561" />
+        <NodeLayout
+          Size="228.8,41.6"
+          Id="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION"
+          TopLeft="426.666643354629,266.866667636964" />
+        <EdgeLayout
+          Id="Package\DFT_OLTP_STG.Paths[OLE DB Source Output6]"
+          TopLeft="540.916643286331,308.466667636964">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,58.066665973597"
+              Start="0,0"
+              End="0,50.566665973597">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,50.566665973597" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT_OLTP_STG\OLTP_EMPLOYEE">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT_OLTP_STG\STG_EMPLOYEE">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT_OLTP_STG\OLTP_CARRIER">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT_OLTP_STG\STG_CARRIER">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT_OLTP_STG\OLTP_DESTINATION">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT_OLTP_STG\STG_DESTINATION">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT_OLTP_STG\STG_PRODUCT">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT_OLTP_STG\OLTP_PRODUCT">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT_OLTP_STG\STG_SUPPLIER">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT_OLTP_STG\OLTP_SUPPLIER">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT_OLTP_STG\STG_VEHICLE">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT_OLTP_STG\OLTP_VEHICLE">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT_OLTP_STG\STG_ORDER_TRANSACTION">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT_OLTP_STG\OLTP_ORDER_TRANSACTION">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
