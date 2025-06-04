@@ -556,7 +556,7 @@ CREATE TABLE fact_Order (
 ---
 
 
-## Summary of What We Have So Far
+## Summary of what we have so far
 - Three databases have been created (DC_OLTP, DC_STG, and DC_DW)  
 - Data has only been manually inserted into the OLTP  
 
