@@ -1,0 +1,30 @@
+*.sql linguist-language=TSQL
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Cria .gitattributes para reconhecer arquivos .sql como TSQL
