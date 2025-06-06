@@ -1,7 +1,7 @@
 # BI Project Data Warehouse: OLTP, Staging, ETL and SCD Type 2 with SSIS
 
 This project simulates the data structure of a Distribution Center (DC), covering the creation of a transactional environment based on OLTP (Online Transaction Processing), progressing through the Staging layer, and culminating in the modeling of a Data Warehouse (DW). It also includes the use of ETL processes with SSIS to automate data integration, the implementation of Incremental Load for efficient data loading, and the application of SCD (Slowly Changing Dimension) techniques to manage historical changes in dimension tables.
-
+ 
 ---
 
 # OBJECTIVE
